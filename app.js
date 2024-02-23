@@ -3,6 +3,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors"); // Import cors
+
 require("dotenv").config();
 
 const app = express();
@@ -31,10 +33,11 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 // Middleware
+app.use(cors()); // Use cors middleware
 app.use(bodyParser.json());
 
 // Routes
-app.post("/addUser", async (req, res) => {
+app.post("/users", async (req, res) => {
   try {
     const { name, email } = req.body;
     const newUser = new User({ name, email });
@@ -46,7 +49,7 @@ app.post("/addUser", async (req, res) => {
   }
 });
 
-app.get("/getAllUsers", async (req, res) => {
+app.get("/users", async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
