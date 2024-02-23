@@ -3,18 +3,23 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+require("dotenv").config();
 
 const app = express();
 const PORT = 3000;
 
 // Connect to MongoDB
-mongoose.connect(
-  "mongodb+srv://dheerajdev247:HBDdoJkvqCKvYX9d@first-cluster.7d6u0t8.mongodb.net/usersDB?retryWrites=true&w=majority&appName=first-cluster",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 mongoose.connection.on("error", (err) => {
   console.error(`MongoDB connection error: ${err}`);
   process.exit(-1);
+});
+
+mongoose.connection.on("connected", () => {
+  console.log("MongoDB connected successfully");
 });
 
 // Create a user schema and model
