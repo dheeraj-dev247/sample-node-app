@@ -59,7 +59,7 @@ app.get("/users", async (req, res) => {
   }
 });
 
-app.get("/helloWorld", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).send("Hello, World!");
 });
 
