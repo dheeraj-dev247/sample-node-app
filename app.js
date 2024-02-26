@@ -8,7 +8,7 @@ const cors = require("cors"); // Import cors
 require("dotenv").config();
 
 const app = express();
-const PORT = 3000;
+const PORT = 80;
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
